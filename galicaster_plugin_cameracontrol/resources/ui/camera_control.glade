@@ -663,6 +663,7 @@
         </child>
         <child>
           <object class="GtkToggleButton" id="togglebutton1">
+            <property name="name">power</property>
             <property name="label" translatable="yes">POWER</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>

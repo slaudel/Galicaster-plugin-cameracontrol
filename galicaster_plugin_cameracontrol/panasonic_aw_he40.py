@@ -24,9 +24,14 @@ class Controls:
         self.max_speed_pan_tilt = conf.get_int('cameracontrol','max_speed_pan_tilt')
 
         r = self.send_cmd("#O")
-        if r.text == "p0":
-            self.send_cmd("#O1")
-        self.logger.info("Connected to remote cam {}".format(self.url))
+        if r.text == "p0" OR r.text == "p1":
+	        self.logger.info("Remote cam {}".format(self.url) reachable)
+
+	def start(self):
+        self.send_cmd("#O1")
+
+	def stop(self):
+		self.send_cmd("#O0")
 
     def move(self, direction, speed_percent):
         speed = (self.max_speed_pan_tilt*speed_percent)/100

@@ -81,6 +81,10 @@ def load_ui(element):
     notebook.append_page(notebook2,label)
     builder.connect_signals(event_handler)
 
+	#POWER
+	label7 = builder.get_object("label7")
+    label_style(label7, True)
+
     speed_zoom = builder.get_object("adjustment1")
     speed_pan_tilt = builder.get_object("adjustment2")
     speed_zoom.set_upper(100)
@@ -249,6 +253,14 @@ class Handler:
         global move_speed
         move_speed = int(args[0].get_value())
         logger.debug("Pan/Tilt speed set to: {}".format(move_speed))
+
+	def power(self, *args):
+        # if the togglebutton is active, stop the camera
+        if power.get_active():
+           jobs.put(cam_ctrl.stop)
+        # else, start it
+        else:
+            jobs.put(cam_ctrl.start)
 
 def get_ui_path(ui_file=""):
     """Retrieve the path to the folder where glade UI files are stored.
