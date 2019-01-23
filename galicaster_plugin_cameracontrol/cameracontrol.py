@@ -163,6 +163,11 @@ def on_key_press(element, source, event):
             logger.debug("Key pressed: zoom_out")
             event_handler.zoom_out()
 
+        if event.keyval == Gdk.keyval_from_name("power"):
+            pressed = True
+            logger.debug("Key pressed: power")
+            event_handler.power()
+
 def on_key_release(element, source, event):
     global pressed
     if event.keyval == Gdk.keyval_from_name("Up") or event.keyval == Gdk.keyval_from_name("Right") or event.keyval == Gdk.keyval_from_name("Down") \
