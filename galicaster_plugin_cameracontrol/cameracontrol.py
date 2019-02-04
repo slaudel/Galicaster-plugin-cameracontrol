@@ -73,18 +73,16 @@ def load_ui(element):
     label3 = builder.get_object("label3")
     label1 = builder.get_object("label1")
     label4 = builder.get_object("label4")
+    label7 = builder.get_object("label7")
     label_style(label)
     label_style(label2, True)
     label_style(label3, True)
+    label_style(label7, True)
     label_style(label1, True, 12)
     label_style(label4, True, 12)
     notebook.append_page(notebook2,label)
     builder.connect_signals(event_handler)
-
-	#POWER
-	label7 = builder.get_object("label7")
-    label_style(label7, True)
-
+    
     speed_zoom = builder.get_object("adjustment1")
     speed_pan_tilt = builder.get_object("adjustment2")
     speed_zoom.set_upper(100)
@@ -162,11 +160,6 @@ def on_key_press(element, source, event):
             pressed = True
             logger.debug("Key pressed: zoom_out")
             event_handler.zoom_out()
-
-        if event.keyval == Gdk.keyval_from_name("power"):
-            pressed = True
-            logger.debug("Key pressed: power")
-            event_handler.power()
 
 def on_key_release(element, source, event):
     global pressed
@@ -259,13 +252,15 @@ class Handler:
         move_speed = int(args[0].get_value())
         logger.debug("Pan/Tilt speed set to: {}".format(move_speed))
 
-	def power(self, *args):
-        # if the togglebutton is active, stop the camera
-        if power.get_active():
+    # If the Switch is pressed, get the state and (de)activate the camera
+    def on_power_switch(self, *args):
+        if args[0].get_state():
            jobs.put(cam_ctrl.stop)
-        # else, start it
+           logger.debug("Stop the Cam")
         else:
             jobs.put(cam_ctrl.start)
+            logger.debug("Start the Cam")
+
 
 def get_ui_path(ui_file=""):
     """Retrieve the path to the folder where glade UI files are stored.

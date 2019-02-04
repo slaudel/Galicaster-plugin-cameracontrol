@@ -23,15 +23,15 @@ class Controls:
         self.zoom_levels = conf.get_int('cameracontrol','zoom_levels')
         self.max_speed_pan_tilt = conf.get_int('cameracontrol','max_speed_pan_tilt')
 
-        r = self.send_cmd("#O")
-        if r.text == "p0" OR r.text == "p1":
-	        self.logger.info("Remote cam {}".format(self.url) reachable)
+#        r = self.send_cmd("#O")
+#        if r.text == "p0" OR r.text == "p1":
+#	        self.logger.info("Remote cam {}".format(self.url) reachable)
 
-	def start(self):
+    def start(self):
         self.send_cmd("#O1")
 
-	def stop(self):
-		self.send_cmd("#O0")
+    def stop(self):
+        self.send_cmd("#O0")
 
     def move(self, direction, speed_percent):
         speed = (self.max_speed_pan_tilt*speed_percent)/100
