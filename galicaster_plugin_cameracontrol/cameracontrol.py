@@ -12,6 +12,7 @@
 # San Francisco, California, 94105, USA.
 
 import Queue
+import requests
 
 from os import path
 from galicaster.core import context
@@ -254,12 +255,15 @@ class Handler:
 
     # If the Switch is pressed, get the state and (de)activate the camera
     def on_power_switch(self, *args):
+        address = conf.get('cameracontrol','path')
         if args[0].get_state():
-           jobs.put(cam_ctrl.stop)
+           #logger.debug("Sending command {} to url {}".format("O", address))
+           r = requests.get("http://{}/cgi-bin/aw_ptz".format(address), params={"cmd": "#O0","res":"1"}, timeout=2)
            logger.debug("Stop the Cam")
         else:
-            jobs.put(cam_ctrl.start)
-            logger.debug("Start the Cam")
+           #logger.debug("Sending command {} to url {}".format("O", address))
+           r = requests.get("http://{}/cgi-bin/aw_ptz".format(address), params={"cmd": "#O1","res":"1"}, timeout=2)
+           logger.debug("Start the Cam")
 
 
 def get_ui_path(ui_file=""):
