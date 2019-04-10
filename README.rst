@@ -20,6 +20,10 @@ Right now, the plugin works with the following cameras:
 Installation
 ------------
 
+From inside root of plugin source:
+python setup.py sdist
+pip install dist/galicaster_plugin_cameracontrol-1.0.1.tar.gz
+
 This plugin can be installed as a deb package or through pip installer:
 	- To generate deb package
 		In repository root folder execute ``sudo py2deb -r pathtorepo .``
